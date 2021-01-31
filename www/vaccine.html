@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <script type="module">
+    //modulo para que funcione el spiner 'cargando...'
+    import { loadingController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+    window.loadingController = loadingController;
+  </script>
+  <script src='js/vaccine.js'></script>
+
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
+
+  <style>
+    .my-custom-class {
+      --background: #222;
+      --spinner-color: #fff;
+
+      color: #fff;
+    }
+
+    :root {
+      --ion-safe-area-top: 20px;
+      --ion-safe-area-bottom: 22px;
+
+      --app-background-color: #fefefe;
+      --app-background: radial-gradient(#cdd0ff 1px, transparent 0), radial-gradient(#cdd0ff 1px, #fefefe 0);
+      --text-base-color: #000;
+      --text-title-color: #011440;
+      --text-subtitle-color: #001e63;
+      --text-small-color: #646262;
+    }
+
+    .iframe-mapa {
+      width: 100%;
+      height: 100vh;
+    }
+
+
+    scroll-container {
+      display: block;
+      width: 350px;
+      height: 200px;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+
+    scroll-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 5em;
+    }
+  </style>
+
+  <script type="module">
+    //modulo para que funcione el menu lateral
+    import { menuController } from 'https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/index.esm.js';
+    window.menuController = menuController;
+  </script>
+
+
+</head>
+
+<body>
+  
+  <ion-app>
+    <ion-nav></ion-nav>
+    <ion-menu side="start" content-id="main-content">
+      <ion-header>
+        <ion-toolbar translucent color="danger">
+          <ion-title>Menu</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+
+          <ion-item href="index.html" routerDirection="forward">
+
+            <ion-icon name="map-outline" slot="start"></ion-icon>
+            <ion-label>Mapas</ion-label>
+
+          </ion-item>
+
+          <ion-item>
+            <ion-icon name="locate-outline" slot="start"></ion-icon>
+            <ion-label>Mi Zona</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="stats-chart-outline" slot="start"></ion-icon>
+            <ion-label>Estadísticas</ion-label>
+          </ion-item>
+      
+          <ion-item>
+            <ion-icon name="git-compare-outline" slot="start"></ion-icon>
+            <ion-label>Comparar zonas</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="reader-outline" slot="start"></ion-icon>
+            <ion-label>Datos Contagio España</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="newspaper-outline" slot="start"></ion-icon>
+            <ion-label>Noticias</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="thermometer-outline" slot="start"></ion-icon>
+            <ion-label>Auto Test</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="medkit-outline" slot="start"></ion-icon>
+            <ion-label>Datos Hospitalización</ion-label>
+          </ion-item>
+          <ion-item href="vaccine.html" routerDirection="forward">
+            <ion-icon name="eyedrop-outline" slot="start"></ion-icon>
+            <ion-label>Datos Vacunación</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon name="people-outline" slot="start"></ion-icon>
+            <ion-label>Créditos</ion-label>
+          </ion-item>
+          <!--OPCION SUBMENÚ-->
+          <!--<ion-item>
+            <ion-list>
+              <ion-item>
+                <ion-icon name="people-outline" slot="start"></ion-icon>
+                <ion-label>CRED 1</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon name="people-outline" slot="start"></ion-icon>
+                <ion-label>CRED 2</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-item>-->
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+
+    <div class="ion-page" id="main-content">
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+            <!--hamburguesa-->
+          </ion-buttons>
+          <ion-title>Datos Vacunación</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+  
+        <ion-slides pager="true">
+          <ion-slide>
+            <ion-card>
+              <div >
+                <section >
+                  <div >
+                    <div ><img src="img/mapa.png" alt="Vacunas distribuidas en Madrid"
+                        width="10" height="10">
+                      
+                      <section>
+                        <div>
+                          <h3>Vacunas distribuidas:</h3>
+                          <p id="dosisDistribuidas"></p>
+                        </div>
+                        <canvas id="myChartMadridEntregadas"></canvas>
+                        <p>Es el <strong><span id="porcentajeDosisEntregadas"></span>&nbsp;%</strong> del total sobre la
+                          población de la Comunidad de Madrid</p>
+                      </section>
+                    </div>
+                    <div ><img src="img/vacuna.png" alt="Vacunas administradas en Madrid"
+                        width="150" height="150">
+                      <section>
+                        <div>
+                          <h3>Dosis administradas:</h3>
+                          <p id="dosisAdministradas"></p>
+                        </div>
+                        <canvas id="myChartMadridAdministradas"></canvas>
+                        <p>Supone el <strong><span id="porcentajePoblacionAdministradas"></span>&nbsp;%</strong> del
+                          total sobre la población de la Comunidad de Madrid<br>Es el
+                          <strong><span id="porcentajeAdministradasTotal"></span>&nbsp;%</strong>
+                          sobre el total de las vacunas entregadas hasta ahora
+                        </p>
+                      </section>
+                    </div>
+                    <div><img src="img/vacunas-completas.png"
+                        alt="Dosis completas subministradas" width="150" height="150">
+                      <section>
+                        <div>
+                          <h3>Pauta completa:</h3>
+                          <p id="pautaCompleta"></p>
+                        </div>
+                        <canvas id="myChartMadridCompletadas"></canvas>
+                        <p>Personas que han recibido las dos dosis de la vacuna.<br>Suponen un
+                          <strong><span id="porcentajeCompletas"></span>&nbsp;%</strong>
+                          de las dosis administradas.<br>Supone el <strong> <span
+                              id="porcenSobreTotalCompletas"></span>&nbsp;%</strong> del total sobre la población de la
+                          Comunidad de Madrid
+                        </p>
+                      </section>
+                    </div><small > - Datos actualizados <time title="January 22"
+                        datetime="January 22">hace 1 día</time>.</small>
+                  </div>
+                </section>
+              </div>
+
+              <ion-card-header>
+                <ion-card-subtitle>Vacunación COVID-19 en España</ion-card-subtitle>
+                <ion-card-title>Desliza izquierda o derecha para visualizar los datos</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>Fuente: Ministerio de Sanidad</ion-card-content>
+            </ion-card>
+          </ion-slide>
+
+          <ion-slide>
+            <ion-card>
+              <div >
+                <section >
+                  <div >
+                    <div ><img src="img/flag.png" alt="Vacunas distribuidas en España"
+                        width="10" height="10">
+                      <section>
+                        <div>
+                          <h3>Vacunas distribuidas:</h3>
+                          <p id="dosisDistribuidasEs"></p>
+                        </div>
+                        <p>Es el <strong><span id="porcentajeDosisEntregadasEs"></span>&nbsp;%</strong> del total de
+                          España</p>
+                      </section>
+                    </div>
+                    <div ><img src="img/vaccine.png" alt="Vacunas administradas en España"
+                        width="150" height="150">
+                      <section>
+                        <div>
+                          <h3>Dosis administradas:</h3>
+                          <p id="dosisAdministradasEs"></p>
+                        </div>
+                        <p>Supone el <strong><span id="porcentajePoblacionAdministradasEs"></span>&nbsp;%</strong> del
+                          total de España<br>Es el
+                          <strong><span id="porcentajeAdministradasTotalEs"></span>&nbsp;%</strong>
+                          sobre las vacunas distruibidas
+                        </p>
+                      </section>
+                    </div>
+                    <div ><img src="img/vaccine_completed.png"
+                        alt="Dosis completas subministradas" width="150" height="150">
+                      <section>
+                        <div>
+                          <h3>Pauta completa:</h3>
+                          <p id="pautaCompletaEs"></p>
+                        </div>
+                        <p>Personas que han recibido las dos dosis de la vacuna.<br>Suponen un
+                          <strong><span id="porcentajeCompletasEs"></span>&nbsp;%</strong>
+                          de las dosis administradas.<br>Supone el <strong><span
+                              id="porcenSobreTotalCompletasEs"></span>&nbsp;%</strong> del total de España
+                        </p>
+                      </section>
+                    </div><small > - Datos actualizados <time title="January 22"
+                        datetime="January 22">hace 1 día</time>.</small>
+                  </div>
+                </section>
+              </div>
+
+              <ion-card-header>
+                <ion-card-subtitle>Vacunación COVID-19 en España</ion-card-subtitle>
+                <ion-card-title>Desliza izquierda o derecha para visualizar los datos</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>Fuente: Ministerio de Sanidad</ion-card-content>
+            </ion-card>
+          </ion-slide>
+
+          <ion-slide>
+            <ion-card>
+              <div >
+                <section >
+                  <div >
+                    <div ><!--<img src="img/line-graph.png" alt="Vacunas distribuidas en Madrid"
+                        width="10" height="10">-->
+                      <section>
+                        <div>
+                          <h3>Evolución de dosis entregadas</h3>
+                          <canvas id="myChart"></canvas>
+                        </div>
+                        <p>Total de dosis distrubuidas por fecha.</p>
+                      </section>
+                    </div>
+                    <div ><!--<img src="img/infographic.png" alt="Vacunas administradas en Madrid"
+                        width="150" height="150">-->
+                      <section>
+                        <div>
+                          <h3>Evolución de dosis administradas</h3>
+                          <canvas id="myChartAdministradas"></canvas>
+                        </div>
+                        <p>Total de dosis administradas por fecha.</p>
+                      </section>
+                    </div>
+                    <div ><!--<img src="img/line-chart.png" alt="Dosis completas subministradas"
+                        width="150" height="150">-->
+                      <section>
+                        <div>
+                          <h3>Evolución pauta completa</h3>
+                          <canvas id="myChartCompletada"></canvas>
+                        </div>
+                        <p>Personas que han recibido las dos dosis de la vacuna.</p>
+                      </section>
+                    </div><small> - Datos actualizados <time title="January 22"
+                        datetime="January 22">hace 1 día</time>.</small>
+                  </div>
+                </section>
+              </div>
+
+              <ion-card-header>
+                <ion-card-subtitle>Vacunación COVID-19 en España</ion-card-subtitle>
+                <ion-card-title>Desliza izquierda o derecha para visualizar los datos</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>Fuente: Ministerio de Sanidad</ion-card-content>
+              <p  style="display: none">Mi copyright: tu quien ere peazo p</p>
+            </ion-card>
+          </ion-slide>
+        </ion-slides>
+
+
+      </ion-content>
+    </div>
+    
+  </ion-app>
+
+  <script>
+
+    //CODIGO PARA QUE FUNCIONE EL SLIDER
+
+    var slides = document.querySelector('ion-slides');
+
+    // Optional parameters to pass to the swiper instance.
+    // See http://idangero.us/swiper/api/ for valid options.
+    slides.options = {
+      initialSlide: 0,
+      speed: 400
+    }
+
+  </script>
+
+  <script src="js/index.js"></script>
+  <script src="cordova.js"></script>
+
+
+</body>
+
+</html>

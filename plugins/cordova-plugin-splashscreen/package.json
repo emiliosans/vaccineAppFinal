@@ -1,0 +1,78 @@
+{
+  "_from": "git+https://github.com/apache/cordova-plugin-splashscreen.git",
+  "_id": "cordova-plugin-splashscreen@6.0.1-dev",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-splashscreen",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/apache/cordova-plugin-splashscreen.git",
+    "rawSpec": "https://github.com/apache/cordova-plugin-splashscreen.git",
+    "saveSpec": "git+https://github.com/apache/cordova-plugin-splashscreen.git",
+    "fetchSpec": "https://github.com/apache/cordova-plugin-splashscreen.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#DEV:/",
+    "#USER"
+  ],
+  "_resolved": "git+https://github.com/apache/cordova-plugin-splashscreen.git#be673a94acbc11769566e214bc08febf27975cca",
+  "_spec": "https://github.com/apache/cordova-plugin-splashscreen.git",
+  "_where": "/Users/emilio/Documents/JAVASCRIPTAVANZADOEIONIC/Clase/20-765/vaccineApp",
+  "author": {
+    "name": "Apache Software Foundation"
+  },
+  "bugs": {
+    "url": "https://github.com/apache/cordova-plugin-splashscreen/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-splashscreen",
+    "platforms": [
+      "android",
+      "windows",
+      "browser"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova Splashscreen Plugin",
+  "devDependencies": {
+    "@cordova/eslint-config": "^3.0.0"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "2.0.0": {
+        "cordova-android": ">=3.6.0"
+      },
+      "7.0.0": {
+        "cordova": ">100"
+      },
+      ">=4.0.0": {
+        "cordova-android": ">=3.6.0",
+        "cordova-windows": ">=4.4.0"
+      }
+    }
+  },
+  "homepage": "https://github.com/apache/cordova-plugin-splashscreen#readme",
+  "keywords": [
+    "cordova",
+    "splashscreen",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-windows",
+    "cordova-browser"
+  ],
+  "license": "Apache-2.0",
+  "name": "cordova-plugin-splashscreen",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apache/cordova-plugin-splashscreen.git"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "npm run lint"
+  },
+  "types": "./types/index.d.ts",
+  "version": "6.0.1-dev"
+}
